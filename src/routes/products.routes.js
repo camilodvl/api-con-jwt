@@ -4,7 +4,7 @@ import * as productsCtrl from '../controllers/products.controller'
 
 router.get('/', productsCtrl.getProducts)
 
-router.get('/:productId', productsCtrl.getroductById)
+router.get('/:productId', productsCtrl.getProductById)
 
 router.post('/', productsCtrl.createProduct)
 
