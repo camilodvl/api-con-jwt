@@ -1,28 +1,31 @@
 import Product from "../models/Product"
 
 
-export const createProduct = async(req, res) => {
-    const {name, category, price, imgURL}= req.body;
-    const newProduct = new Product({name, category, price, imgURL})
+export const createProduct = async (req, res) => {
+    const { name, category, price, imgURL } = req.body;
+    const newProduct = new Product({ name, category, price, imgURL })
     const productSave = await newProduct.save(); //se retorna el producto guardado
     res.status(201).json(productSave);
 }
 
-export const getProducts = async(req, res) => {
+export const getProducts = async (req, res) => {
     const products = await Product.find();
     res.status(200).json(products)
 }
 
-export const getProductById = async(req, res) => {
+export const getProductById = async (req, res) => {
     const product = await Product.findById(req.params.productId)
     res.status(200).json(product)
 
 }
 
-export const updateProductById = async(req, res) => {
-    res.json('update product');
+export const updateProductById = async (req, res) => {
+    const updatedProduct = await Product.findByIdAndUpdate(req.params.productId, req.body, { new: true });//busca el producto por id, y le actualiza lo del body, luego
+    //retorna el objeto actualizado con el new true, si no estuviera el new:true retorna el objeti viejo
+    res.status(200).json(updatedProduct);
 }
 
-export const deleteProductById = async(req, res) => {
-    res.json('delete product')
+export const deleteProductById = async (req, res) => {
+    const deleted = await Product.findByIdAndDelete(req.params.productId);
+    res.json(deleted)
 }
