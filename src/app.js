@@ -3,8 +3,11 @@ import morgan from 'morgan'
 import pkg from '../package.json'
 import productsRoutes from './routes/products.routes' //se importa el router como productsRoutes
 import authRoutes from './routes/auth.routes'
+import { createRoles } from './libs/initialSetup'
 
 const app = express()
+createRoles();
+
 app.set('pkg', pkg)
 
 app.use(express.json()) //middleware para recibir el formato json
