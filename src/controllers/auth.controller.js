@@ -32,6 +32,18 @@ export const signUp = async (req, res) => {
 
 };
 
+
 export const signIn = async (req, res) => {
-  res.json("signin");
+  const {email, password} = req.body;
+  console.log(email);
+  const userFound= await User.findOne({email: email})
+  //si el objeto existe
+
+  if (!userFound){
+    res.status(400).json({message: "User not found"})
+  }else{
+    console.log("User Found")
+    res.json({token: ""})
+  }
+
 };
