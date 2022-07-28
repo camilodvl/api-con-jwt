@@ -34,16 +34,25 @@ export const signUp = async (req, res) => {
 
 
 export const signIn = async (req, res) => {
-  const {email, password} = req.body;
+  const { email, password } = req.body;
   console.log(email);
-  const userFound= await User.findOne({email: email})
+  const userFound = await User.findOne({ email: email }).populate("roles");
   //si el objeto existe
 
-  if (!userFound){
-    res.status(400).json({message: "User not found"})
-  }else{
-    console.log("User Found")
-    res.json({token: ""})
-  }
+  if (!userFound) return res.status(400).json({ message: "User not found" })
+
+  //comparamos clave enviada, con la almacenada
+  const matchPassword = await User.comparePassword(req.body.password, userFound.password)
+  if (!matchPassword) return res.status(401).json({ token: null, message: "Pass not" })
+  
+
+  //si todo es correcto, retornamos el token
+  const token = jwt.sign({id: userFound._id}, config.SECRET, {
+    expiresIn: 86400
+  })
+
+  console.log(userFound)
+  res.json({ token })
+
 
 };
