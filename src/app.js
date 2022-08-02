@@ -21,7 +21,7 @@ app.get('/', (req, res)=>{
     })
 })
 
-app.use('/api/products',productsRoutes); //se usan las rutas importadas de productsRoutes
-app.use('/api/auth', authRoutes)
+app.use('/products',productsRoutes); //se usan las rutas importadas de productsRoutes
+app.use('/auth', authRoutes)
 
 export default app;

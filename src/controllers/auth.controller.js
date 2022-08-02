@@ -44,10 +44,10 @@ export const signIn = async (req, res) => {
   //comparamos clave enviada, con la almacenada
   const matchPassword = await User.comparePassword(req.body.password, userFound.password)
   if (!matchPassword) return res.status(401).json({ token: null, message: "Pass not" })
-  
+
 
   //si todo es correcto, retornamos el token
-  const token = jwt.sign({id: userFound._id}, config.SECRET, {
+  const token = jwt.sign({ id: userFound._id }, config.SECRET, {
     expiresIn: 86400
   })
 
