@@ -1,3 +1,3 @@
-import { verifyToken } from "./authJwt";
+import { verifyToken , verifyAdmin} from "./authJwt";
 
-export {verifyToken};
+export {verifyToken, verifyAdmin};
