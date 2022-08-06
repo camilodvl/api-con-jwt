@@ -9,8 +9,8 @@ router.get('/:productId', productsCtrl.getProductById)
 
 router.post('/', verifyToken, verifyAdmin, productsCtrl.createProduct)
 
-router.delete('/:productId', verifyToken, productsCtrl.deleteProductById)
+router.delete('/:productId', verifyToken, verifyAdmin, productsCtrl.deleteProductById)
 
-router.put('/:productId', verifyToken, productsCtrl.updateProductById)
+router.put('/:productId', verifyToken, verifyAdmin, productsCtrl.updateProductById)
 
 export default router;

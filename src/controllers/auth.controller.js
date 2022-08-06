@@ -15,6 +15,7 @@ export const signUp = async (req, res) => {
   if (roles) {
     const foundRoles = await Role.find({ name: { $in: roles } })//retorna todos los roles que encuentre en un objeto
     newUser.roles = foundRoles.map(role => role.id)//va a mapear solo el id
+    console.log(newUser.roles);
   } else {
     const role = await Role.findOne({ name: "user" })
     newUser.roles = [role.id]; //si no ingresaron roles, por defecto asigna el de usuario
@@ -25,7 +26,7 @@ export const signUp = async (req, res) => {
   // y un objeto de configuración (el objeto de configuracion está en config.js)
   console.log(savedUser)
   const token = jwt.sign({ id: savedUser._id }, config.SECRET, {
-    expiresIn: 86400//expiracion en segundos
+    expiresIn: 86400//expiracion en segundosa¿
   })
 
   res.json({ "token": token });
@@ -56,3 +57,9 @@ export const signIn = async (req, res) => {
 
 
 };
+
+
+export const listUsers = async (req,res)=>{
+  const users = await User.find()
+  res.status(200).json(users)
+}
